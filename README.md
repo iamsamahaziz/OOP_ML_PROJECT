@@ -1,106 +1,106 @@
-# 🤖 Mini Scikit-Learn en Java
+# 🤖 Mini Scikit-Learn in Java
 
-Un framework de Machine Learning orienté objet développé en Java, inspiré de Scikit-Learn. Ce projet implémente des algorithmes de régression et de classification avec des fonctionnalités de prétraitement des données.
+An object-oriented Machine Learning framework developed in Java, inspired by Scikit-Learn. This project implements regression and classification algorithms with data preprocessing capabilities.
 
-## 📋 Table des matières
+## 📋 Table of Contents
 
-- [Fonctionnalités](#-fonctionnalités)
+- [Features](#-features)
 - [Architecture](#-architecture)
 - [Installation](#-installation)
-- [Utilisation](#-utilisation)
-- [Algorithmes implémentés](#-algorithmes-implémentés)
-- [Exemples](#-exemples)
-- [Structure du projet](#-structure-du-projet)
-- [Auteur](#-auteur)
+- [Usage](#-usage)
+- [Implemented Algorithms](#-implemented-algorithms)
+- [Examples](#-examples)
+- [Project Structure](#-project-structure)
+- [Author](#-author)
 
-## ✨ Fonctionnalités
+## ✨ Features
 
-- **Algorithmes de régression** : Régression linéaire, KNN Régression
-- **Algorithmes de classification** : KNN Classification
-- **Prétraitement des données** : StandardScaler, MinMaxScaler
-- **Métriques d'évaluation** : R², Accuracy, MSE
-- **Utilitaires** : Train/Test Split avec seed aléatoire
-- **Architecture POO** : Design pattern avec classe abstraite `MLModel`
+- **Regression Algorithms**: Linear Regression, KNN Regression
+- **Classification Algorithms**: KNN Classification
+- **Data Preprocessing**: StandardScaler, MinMaxScaler
+- **Evaluation Metrics**: R², Accuracy, MSE
+- **Utilities**: Train/Test Split with random seed
+- **OOP Architecture**: Design pattern with abstract `MLModel` class
 
 ## 🏗️ Architecture
 
-Le projet suit une architecture modulaire basée sur la programmation orientée objet :
+The project follows a modular architecture based on object-oriented programming:
 
 ```
 ml/
-├── core/          # Classes abstraites de base
-├── linear/        # Algorithmes de régression linéaire
-├── knn/           # Algorithmes K-Nearest Neighbors
-├── preprocessing/ # Normalisation et standardisation
-├── metrics/       # Métriques d'évaluation
-├── model_selection/ # Utilitaires de séparation des données
-└── app/           # Application principale et tests
+├── core/          # Base abstract classes
+├── linear/        # Linear regression algorithms
+├── knn/           # K-Nearest Neighbors algorithms
+├── preprocessing/ # Normalization and standardization
+├── metrics/       # Evaluation metrics
+├── model_selection/ # Data splitting utilities
+└── app/           # Main application and tests
 ```
 
 ## 🚀 Installation
 
-### Prérequis
+### Prerequisites
 
-- Java JDK 8 ou supérieur
-- Un IDE Java (IntelliJ IDEA, Eclipse, VS Code) ou un compilateur en ligne de commande
+- Java JDK 8 or higher
+- A Java IDE (IntelliJ IDEA, Eclipse, VS Code) or command-line compiler
 
 ### Compilation
 
 ```bash
-# Compiler tous les fichiers
+# Compile all files
 javac -d bin app/*.java core/*.java linear/*.java knn/*.java preprocessing/*.java metrics/*.java model_selection/*.java
 
-# Exécuter l'application
+# Run the application
 java -cp bin ml.app.Main
 ```
 
-## 💻 Utilisation
+## 💻 Usage
 
-### Exemple basique - Régression linéaire
+### Basic Example - Linear Regression
 
 ```java
 import ml.linear.LinearRegression;
 import ml.model_selection.DataUtils;
 
-// Préparer les données
+// Prepare data
 double[][] data = {
     {1.0, 2.1}, {2.0, 3.9}, {3.0, 6.1}, 
     {4.0, 7.9}, {5.0, 10.2}
 };
 
-// Séparer en train/test
+// Split into train/test
 DataUtils.SplitResult split = DataUtils.trainTestSplit(data, 0.2, 42);
 
-// Créer et entraîner le modèle
+// Create and train the model
 LinearRegression model = new LinearRegression(0.01, 1000);
 model.train(split.trainSet);
 
-// Évaluer
+// Evaluate
 double score = model.score(split.testSet);
-System.out.println("Score R² : " + score);
+System.out.println("R² Score: " + score);
 ```
 
-### Exemple - KNN Classification
+### Example - KNN Classification
 
 ```java
 import ml.knn.KNNClassification;
 
-// Dataset de classification binaire
+// Binary classification dataset
 double[][] classData = {
     {1.0, 1.1, 0.0}, {1.2, 0.9, 0.0},
     {5.0, 5.1, 1.0}, {5.2, 4.9, 1.0}
 };
 
-// Créer et entraîner
+// Create and train
 KNNClassification model = new KNNClassification(3);
 model.train(classData);
 
-// Prédire
+// Predict
 double[] newPoint = {1.5, 1.0};
 double prediction = model.predict(newPoint);
 ```
 
-### Prétraitement des données
+### Data Preprocessing
 
 ```java
 import ml.preprocessing.StandardScaler;
@@ -110,120 +110,119 @@ double[][] normalizedData = scaler.fitTransform(trainData);
 double[][] normalizedTest = scaler.transform(testData);
 ```
 
-## 🧮 Algorithmes implémentés
+## 🧮 Implemented Algorithms
 
-### Régression
+### Regression
 
-| Algorithme | Classe | Hyperparamètres |
-|------------|--------|-----------------|
-| Régression Linéaire | `LinearRegression` | `learningRate`, `epochs` |
-| KNN Régression | `KNNRegression` | `k` (nombre de voisins) |
+| Algorithm | Class | Hyperparameters |
+|-----------|-------|-----------------|
+| Linear Regression | `LinearRegression` | `learningRate`, `epochs` |
+| KNN Regression | `KNNRegression` | `k` (number of neighbors) |
 
 ### Classification
 
-| Algorithme | Classe | Hyperparamètres |
-|------------|--------|-----------------|
-| KNN Classification | `KNNClassification` | `k` (nombre de voisins) |
+| Algorithm | Class | Hyperparameters |
+|-----------|-------|-----------------|
+| KNN Classification | `KNNClassification` | `k` (number of neighbors) |
 
-### Prétraitement
+### Preprocessing
 
-| Technique | Classe | Description |
-|-----------|--------|-------------|
-| Standardisation | `StandardScaler` | Normalisation Z-score (μ=0, σ=1) |
-| Min-Max Scaling | `MinMaxScaler` | Mise à l'échelle [0, 1] |
+| Technique | Class | Description |
+|-----------|-------|-------------|
+| Standardization | `StandardScaler` | Z-score normalization (μ=0, σ=1) |
+| Min-Max Scaling | `MinMaxScaler` | Scaling to [0, 1] range |
 
-## 📊 Exemples
+## 📊 Examples
 
-Le fichier `Main.java` contient 5 expériences complètes :
+The `Main.java` file contains 5 complete experiments:
 
-1. **Impact du Learning Rate** - Teste différents taux d'apprentissage (0.01, 0.005, 0.001)
-2. **Impact du nombre d'Epochs** - Compare 500, 1000, 2000 itérations
-3. **Impact de K dans KNN** - Évalue K = 1, 3, 5, 7
-4. **Impact du prétraitement** - Compare sans prétraitement, MinMaxScaler, StandardScaler
-5. **Impact du Test Ratio** - Teste différentes proportions train/test (0.2, 0.3, 0.4)
+1. **Learning Rate Impact** - Tests different learning rates (0.01, 0.005, 0.001)
+2. **Epochs Impact** - Compares 500, 1000, 2000 iterations
+3. **K Impact in KNN** - Evaluates K = 1, 3, 5, 7
+4. **Preprocessing Impact** - Compares no preprocessing, MinMaxScaler, StandardScaler
+5. **Test Ratio Impact** - Tests different train/test proportions (0.2, 0.3, 0.4)
 
-### Exécution des expériences
+### Running the Experiments
 
 ```bash
 java -cp bin ml.app.Main
 ```
 
-Sortie attendue :
+Expected output:
 ```
 ============================================================
-    MINI SCIKIT-LEARN - EXPÉRIMENTATIONS COMPLÈTES
+    MINI SCIKIT-LEARN - COMPLETE EXPERIMENTS
 ============================================================
 
-EXPÉRIENCE 1 : Impact du Learning Rate
---- Configuration : LR = 0.01 ---
-Modèle : LinearRegression (prêt)
-Score (R2) du modèle LinearRegression = 0.9876
+EXPERIMENT 1: Learning Rate Impact
+--- Configuration: LR = 0.01 ---
+Model: LinearRegression (ready)
+LinearRegression model R² Score = 0.9876
 ...
 ```
 
-## 📁 Structure du projet
+## 📁 Project Structure
 
 ```
 projet_poo/
 │
 ├── app/
-│   └── Main.java                    # Point d'entrée et expériences
+│   └── Main.java                    # Entry point and experiments
 │
 ├── core/
-│   └── MLModel.java                 # Classe abstraite de base
+│   └── MLModel.java                 # Base abstract class
 │
 ├── linear/
-│   └── LinearRegression.java        # Régression linéaire (Gradient Descent)
+│   └── LinearRegression.java        # Linear regression (Gradient Descent)
 │
 ├── knn/
-│   ├── KNNRegression.java          # K-Nearest Neighbors pour régression
-│   └── KNNClassification.java      # K-Nearest Neighbors pour classification
+│   ├── KNNRegression.java          # K-Nearest Neighbors for regression
+│   └── KNNClassification.java      # K-Nearest Neighbors for classification
 │
 ├── preprocessing/
-│   ├── Preprocessor.java           # Interface de prétraitement
-│   ├── StandardScaler.java         # Standardisation Z-score
-│   └── MinMaxScaler.java           # Normalisation Min-Max
+│   ├── Preprocessor.java           # Preprocessing interface
+│   ├── StandardScaler.java         # Z-score standardization
+│   └── MinMaxScaler.java           # Min-Max normalization
 │
 ├── metrics/
-│   └── Metrics.java                # Métriques d'évaluation (R², MSE, Accuracy)
+│   └── Metrics.java                # Evaluation metrics (R², MSE, Accuracy)
 │
 ├── model_selection/
 │   └── DataUtils.java              # Train/Test Split
 │
-└── README.md                        # Ce fichier
+└── README.md                        # This file
 ```
 
-## 🎓 Concepts POO utilisés
+## 🎓 OOP Concepts Used
 
-- **Abstraction** : Classe abstraite `MLModel` définissant l'interface commune
-- **Héritage** : Tous les modèles héritent de `MLModel`
-- **Polymorphisme** : Méthodes `train()`, `predict()`, `score()` redéfinies
-- **Encapsulation** : Attributs protégés et méthodes publiques
-- **Interfaces** : `Preprocessor` pour les transformateurs de données
+- **Abstraction**: Abstract `MLModel` class defining the common interface
+- **Inheritance**: All models inherit from `MLModel`
+- **Polymorphism**: Methods `train()`, `predict()`, `score()` are overridden
+- **Encapsulation**: Protected attributes and public methods
+- **Interfaces**: `Preprocessor` for data transformers
 
-## 🔬 Métriques d'évaluation
+## 🔬 Evaluation Metrics
 
-- **R² (Coefficient de détermination)** : Pour la régression (0 à 1, meilleur = 1)
-- **MSE (Mean Squared Error)** : Erreur quadratique moyenne
-- **Accuracy** : Précision pour la classification (0 à 1, meilleur = 1)
+- **R² (Coefficient of Determination)**: For regression (0 to 1, best = 1)
+- **MSE (Mean Squared Error)**: Mean squared error
+- **Accuracy**: Precision for classification (0 to 1, best = 1)
 
 ## 🛠️ Technologies
 
-- **Langage** : Java
-- **Paradigme** : Programmation Orientée Objet (POO)
-- **Inspiration** : Scikit-Learn (Python)
+- **Language**: Java
+- **Paradigm**: Object-Oriented Programming (OOP)
+- **Inspiration**: Scikit-Learn (Python)
 
-## 📝 Licence
+## 📝 License
 
-Ce projet est développé dans un cadre académique.
+This project is developed in an academic context.
 
-## 👤 Auteur
+## 👤 Author
 
-**Sara Mahaziz**
+**Samah AZIZ**
 - GitHub: [@iamsamahaziz](https://github.com/iamsamahaziz)
-- Projet: OOP_ML_PROJECT
+- Project: OOP_ML_PROJECT
 
 ---
 
-⭐ N'hésitez pas à mettre une étoile si ce projet vous a été utile !
-
+⭐ Feel free to star this project if you found it useful!
